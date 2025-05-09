@@ -1,0 +1,177 @@
+
+.lookbook-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  
+  .lookbook-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 40px;
+    width: 100%;
+    height: 80%;
+    height: calc(100vh - 80px);
+    padding: 0 2%;
+    position: relative;
+    transition: transform 0.1s ease-out;
+  }
+  
+  .lookbook-column {
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+  
+  .lookbook-column:nth-child(2) {
+    padding-top: 15vh;
+  }
+  
+  .lookbook-column:nth-child(4) {
+    padding-top: 15vh;
+  }
+  .lookbook-item {
+    width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    cursor: pointer;
+    margin-bottom: 40px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    position: relative;
+  }
+  
+  .lookbook-item:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+.image-container {
+    width: 200px; 
+    height: 100%; 
+    border-radius: 1000px; 
+    overflow: hidden;
+  }
+  
+  .image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .lookbook-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    cursor: pointer;
+  }
+  
+  .modal-content {
+    position: relative;
+    width: 80%;
+    max-width: 600px;
+    background-color: white;
+    padding: 40px;
+    border-radius: 12px;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    letter-spacing: 1px;
+  }
+  
+  .modal-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  
+  .modal-image-container {
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .modal-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .modal-description {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 16px;
+    line-height: 1.5;
+    max-width: 90%;
+  }
+  
+  .get-product-button {
+    padding: 12px 24px;
+    background-color: #000000;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.2s ease;
+  }
+  
+  .get-product-button:hover {
+    background-color: #333333;
+  }
+  
+  @media (max-width: 768px) {
+    .lookbook-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .lookbook-column:nth-child(4),
+    .lookbook-column:nth-child(5) {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .lookbook-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .lookbook-column:nth-child(3) {
+      display: none;
+    }
+    
+    .lookbook-header {
+      padding: 10px 20px;
+    }
+  }

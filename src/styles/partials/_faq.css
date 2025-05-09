@@ -1,0 +1,109 @@
+.hero-section {
+    padding: 4rem 2rem;
+  }
+  .faq-section {
+      padding: auto var(--spacing-xl) 0;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .faq-item {
+      border-bottom: 1px solid var(--border-color);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .faq-question {
+      color: var(--s-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      padding: var(--spacing-sm) 0;
+    }
+    
+    .faq-question h3 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin: 0;
+    }
+    
+    .expand-button {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+    }
+    
+    .faq-answer {
+      padding: 0 0 var(--spacing-md);
+      color: var(--para);
+    }
+  
+    .help-section {
+      padding: var(--spacing-xl) var(--spacing-xl);
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: var(--spacing-lg);
+      margin: 0 auto;
+    }
+  
+    .help-section::before,
+    .help-section::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 1px; 
+    background-color: var(--border-color)
+    }
+  
+    .help-section::before {
+      top: 55rem;
+    }
+  
+    .help-section::after {
+      top: 75rem; 
+    }
+  
+    .help-title {
+      font-size: 3rem;
+      margin-bottom: var(--spacing-md);
+      color: var(--fourth-color);
+    }
+    
+    .help-column h3 {
+      font-size: 1.2rem;
+      margin-bottom: var(--spacing-sm);
+      color: var(--fourth-color);
+    }
+    
+    .help-column p {
+      color: var(--para);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .help-link {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.9rem;
+      color: var(--s-color);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .help-link:hover {
+      color: var(--primary-color);
+    }
+    
+    
+    .help-link::after {
+      content: '→';
+      margin-left: var(--spacing-xs);
+    }

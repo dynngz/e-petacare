@@ -1,0 +1,68 @@
+.stores-section {
+    padding: 4rem 0;
+    text-align: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .stores-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+  
+  .stores-title {
+    font-size: 4rem;
+    font-weight: bold;
+  }
+  
+  .stores-link {
+    color: var(--fourth-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  
+  .stores-link-arrow {
+    margin-left: 0.5rem;
+  }
+  
+  .stores-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+  
+  .store-item {
+    flex: 1;
+    position: relative;
+  }
+  
+  .store-image-container {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  
+  .store-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .store-name {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    width: 100%;
+    text-align: center;
+  }

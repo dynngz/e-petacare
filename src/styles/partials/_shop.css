@@ -1,0 +1,44 @@
+.hero-section {
+    padding: 4rem 2rem;
+  }
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg) 0;
+  }
+  
+  .product-card {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .product-image {
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: var(--spacing-sm);
+  }
+  
+  .product-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .product-info {
+    text-align: center;
+  }
+  
+  .product-title {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-xs);
+  }
+  
+  .product-price {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+  }

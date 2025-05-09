@@ -1,0 +1,49 @@
+.pet-shop-section {
+    position: relative;
+    margin-bottom: 4rem;
+  }
+  
+  .pet-shop-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+  }
+  
+  .pet-shop-content {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    color: white;
+    max-width: 40%;
+  }
+  
+  .pet-shop-title {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .pet-shop-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .pet-shop-description {
+    margin-bottom: 2rem;
+  }
+  
+  .pet-shop-button {
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    padding: 0.8rem 2rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .pet-shop-button:hover {
+    background-color: white;
+    color: black;
+  }

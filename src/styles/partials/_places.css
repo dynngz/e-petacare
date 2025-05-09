@@ -1,0 +1,139 @@
+.horizontal-scroll-container {
+    width: 100%;
+  }
+  
+  .horizontal-scroll-element {
+    width: 100%;
+    overflow: visible;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    background-color: #000;
+  }
+  
+  .horizontal-scroll-section {
+    height: 100vh;
+    will-change: transform;
+    transition: transform 0.1s ease-out;
+    display: flex;
+  }
+  
+  .location-slide {
+    position: relative;
+    height: 100vh;
+    width: 75vw; 
+    flex: 0 0 75vw;
+    overflow: hidden;
+    border-right: 10px solid #fff; 
+  }
+  
+  .location-name {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    font-size: 8rem;
+    /* font-weight: 300; */
+    color: var(--background-light); 
+    margin: 0;
+    z-index: 3;
+    white-space: normal;
+    word-break: break-word;
+    max-width: 80%; 
+  }
+  
+  .location-details {
+    position: absolute;
+    top: 40%;
+    right: 10%;
+    background-color: #fff;
+    padding: 30px;
+    max-width: 300px;
+    z-index: 3;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  }
+  
+  .location-city {
+    font-size: 1.8rem;
+    margin: 0 0 15px 0;
+    font-weight: 500;
+  }
+  
+  .location-address {
+    margin: 5px 0;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .directions-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #000;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+  
+  .directions-link svg {
+    margin-left: 10px;
+    transition: transform 0.3s ease;
+  }
+  
+  .directions-link:hover svg {
+    transform: translateX(5px);
+  }
+  
+  .location-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+  
+  .location-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .navbar-container.fixed {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+  }
+  
+  @media (max-width: 1200px) {
+    .location-name {
+      font-size: 6rem;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .location-slide {
+      width: 100vw;
+      flex: 0 0 100vw;
+    }
+    
+    .location-name {
+      font-size: 4rem;
+      left: 5%;
+    }
+    
+    .explore-btn {
+      left: 5%;
+      top: calc(50% + 3rem);
+    }
+    
+    .location-details {
+      right: 5%;
+      top: auto;
+      bottom: 15%;
+      max-width: 250px;
+      padding: 20px;
+    }
+  }

@@ -1,0 +1,108 @@
+:root {
+    --background-color: #f0f0f0;
+    --background-light: #e9ddcd;
+    --shadow-color: rgba(0,0,0,0.2);
+    --primary-color: #4281a4;  
+    --second-color: #bbdbf3;
+    --thrid-color: #7ebea5;
+    --verde: #3aa8a2;
+    --fourth-color: #ec6d51;
+    --pink: #d89090;
+    --s-color: #192f60;
+    --text-color: #fff;
+    --text-light: #575757;
+    --para:#777;
+    --font-size: 16px; 
+    --animation-speed: 1;
+    --font-fam: 'Epilogue', serif;
+
+    --border-color: #e0e0e0;
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 2rem;
+    --spacing-lg: 4rem;
+    --spacing-xl: 6rem; 
+    --spacing-xxl: 8rem;
+
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-size: var(--font-size);
+    background-color: var(--background-color);
+    font-family:var(--font-fam);
+    color: var(--primary-color);
+    line-height: 1.6;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-fam);
+    font-weight: 400;
+    margin-top: 0;
+  }
+  
+
+@import "partials/_narvbar.css";
+@import "partials/landingCss/_cartDrawer.css";
+@import "partials/landingCss/_featured.css";
+@import "partials/landingCss/_stores.css";
+@import "partials/landingCss/_shop.css";
+@import "partials/landingCss/_heroSection.css";
+@import "partials/landingCss/_blog.css";
+@import "partials/landingCss/_aboutUs.css";
+@import "partials/_footer.css";
+
+@import "partials/_shop.css";
+@import "partials/_lookbook.css";
+@import "partials/_faq.css";
+@import "partials/_contact-form.css";
+@import "partials/_blog.css";
+@import "partials/_places.css";
+@import "partials/_adoption.css";
+@import "partials/_product.css";
+@import "partials/_donation.css";
+
+@import "partials/shopCss/_productCard.css";
+
+
+@media (max-width: 992px) {
+  .page-title {
+    font-size: 4rem;
+  }
+  
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .contact-section {
+    flex-direction: column;
+  }
+  
+  .contact-info, 
+  .contact-form-container {
+    width: 100%;
+  }
+  
+  .contact-info {
+    margin-bottom: var(--spacing-lg);
+  }
+  
+  .help-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 3rem;
+  }
+  
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
