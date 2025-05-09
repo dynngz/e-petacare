@@ -14,7 +14,7 @@ const errorHandler = require('./middleware/errorHandler');
 
 const app = express();
 
-const API_BASE_URL = process.env.API_BASE_URL || '/api';
+const API_BASE_URL = process.env.APIBASE_URL || '/api';
 
 app.use(express.json({ extended: true }));
 app.use(cors());

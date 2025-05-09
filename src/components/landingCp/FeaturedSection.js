@@ -34,7 +34,6 @@ const FeaturedSection = () => {
                                 className="product-image"
                                 onError={(e) => {
                                     console.log('Image failed to load:', product.image);
-                                    e.target.src = "/placeholder-image.jpg"; 
                                 }}
                             />
                         </div>
