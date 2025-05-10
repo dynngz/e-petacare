@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getProductBySlug, getRelatedProducts } from '../../services/ProductService';
-import { ProductCard } from '../common/ProductCard';
+import { ProductCard } from '../common/ProductCard/ProductCard';
 
 const ProductPage = () => {
   const [product, setProduct] = useState(null);
@@ -18,8 +18,10 @@ const ProductPage = () => {
       setError(null);
       try {
         const productData = await getProductBySlug(slug);
+        console.log("Datos del producto:", productData);
+        
         if (!productData) {
-          throw new Error('Product not found');
+          throw new Error('Producto no encontrado');
         }
         
         setProduct(productData);
@@ -27,10 +29,10 @@ const ProductPage = () => {
         if (productData && productData.category && productData.category._id) {
           try {
             const related = await getRelatedProducts(productData.category._id, productData._id);
-            setRelatedProducts(related);
+            console.log("Productos relacionados:", related);
+            setRelatedProducts(related || []);
           } catch (relatedErr) {
             console.error('Error fetching related products:', relatedErr);
-            //set error solo en esa parte no en todo
             setRelatedProducts([]);
           }
         }
@@ -38,7 +40,7 @@ const ProductPage = () => {
         setLoading(false);
       } catch (err) {
         console.error('Failed to load product:', err);
-        setError('Failed to load product details');
+        setError('No se pudo cargar la información del producto');
         setLoading(false);
       }
     };
@@ -46,7 +48,7 @@ const ProductPage = () => {
     if (slug) {
       fetchProduct();
     } else {
-      setError('Invalid product URL');
+      setError('URL del producto inválida');
       setLoading(false);
     }
   }, [slug]);
@@ -58,41 +60,45 @@ const ProductPage = () => {
   };
 
   const handleQuantityIncrement = () => {
-    setQuantity(quantity + 1);
+    if (product && product.inStock > quantity) {
+      setQuantity(quantity + 1);
+    }
   };
 
   const handleAddToCart = () => {
-    //implementar funcionalidad del carro
+    // Implementar funcionalidad del carro
     console.log(`Added ${quantity} of ${product.name} to cart`);
   };
 
   if (loading) {
-    return <div className="loading">Loading product details...</div>;
+    return <div className="loading">Cargando detalles del producto...</div>;
   }
 
   if (error || !product) {
     return (
       <div className="error-container">
-        <div className="error">{error || 'Product not found'}</div>
+        <div className="error">{error || 'Producto no encontrado'}</div>
         <button className="back-btn" onClick={() => navigate('/shop')}>
-          Back to Shop
+          Volver a la tienda
         </button>
       </div>
     );
   }
 
+  const isInStock = product.inStock > 0;
+
   return (
     <div className="product-page">
       <div className="product-detail">
         <div className="product-image-section">
-          {product.image ? (
-            <img 
-              src={product.image} 
-              alt={product.name} 
-              className="product-detail-image" 
-            />
-          ) : (
-            <div className="image-detail-placeholder">No Image Available</div>
+          <img 
+            src={getImageUrl(product.image, 'producto')} 
+            alt={product.name} 
+            className="product-detail-image" 
+            onError={(e) => handleImageError(e, 'producto')}
+          />
+          {!isInStock && (
+            <div className="out-of-stock-badge">Agotado</div>
           )}
         </div>
         
@@ -117,7 +123,7 @@ const ProductPage = () => {
             <button 
               className="quantity-btn" 
               onClick={handleQuantityDecrement}
-              disabled={quantity <= 1}
+              disabled={quantity <= 1 || !isInStock}
             >
               -
             </button>
@@ -130,7 +136,7 @@ const ProductPage = () => {
             <button 
               className="quantity-btn" 
               onClick={handleQuantityIncrement}
-              disabled={product.inStock <= quantity}
+              disabled={!isInStock || product.inStock <= quantity}
             >
               +
             </button>
@@ -139,15 +145,15 @@ const ProductPage = () => {
           <button 
             className="add-to-cart-btn" 
             onClick={handleAddToCart}
-            disabled={product.inStock < 1}
+            disabled={!isInStock}
           >
-            {product.inStock > 0 ? 'ADD TO CART' : 'OUT OF STOCK'}
+            {isInStock ? 'AÑADIR AL CARRITO' : 'AGOTADO'}
           </button>
           
           {product.category && (
             <div className="product-meta">
               <p className="product-category">
-                Category: <Link to={`/shop/${product.category.slug}`}>{product.category.name}</Link>
+                Categoría: <Link to={`/shop/${product.category.slug}`}>{product.category.name}</Link>
               </p>
             </div>
           )}
@@ -156,10 +162,10 @@ const ProductPage = () => {
       
       {relatedProducts.length > 0 && (
         <div className="related-products">
-          <h2 className="related-title">Related Products</h2>
+          <h2 className="related-title">Productos Relacionados</h2>
           <div className="related-grid">
             {relatedProducts.map(relProduct => (
-              <div className="related-item" key={relProduct._id}>
+              <div className="related-item" key={relProduct._id || relProduct.id}>
                 <ProductCard product={relProduct} />
               </div>
             ))}

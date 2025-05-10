@@ -1,74 +1,70 @@
 import React, { useState, useEffect } from 'react';
-import { getCategories, getProductsByCategory } from '../services/ProductService';
 import { useParams } from 'react-router-dom';
-import { Title } from '../components/common/TitleCp';
 import { CategoryNav } from '../components/shopCp/CategoryNav';
 import { ProductList } from '../components/shopCp/ProductList';
+import { getAllProducts, getProductsByCategory } from '../services/ProductService';
+import { Title } from '../components/common/TitleCp';
 
-const Shop = () => {
+const ShopPage = () => {
   const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [categoryName, setCategoryName] = useState('');
   const { categorySlug } = useParams();
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const categoriesData = await getCategories();
-        setCategories(categoriesData);
-      } catch (err) {
-        setError('Failed to load categories');
-        console.error(err);
-      }
-    };
-
-    fetchCategories();
-  }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
+      setError(null);
       try {
-        let productsData;
+        let productsData = [];
+        let category = null;
+        
         if (categorySlug) {
-          productsData = await getProductsByCategory(categorySlug);
+          const response = await getProductsByCategory(categorySlug);
+          productsData = response || [];
+          
+          // info de categoría
+          if (response && response.category) {
+            category = response.category;
+            setCategoryName(category.name);
+          }
         } else {
-          //get todos los productos
-          productsData = await getProductsByCategory();
+          productsData = await getAllProducts();
+          setCategoryName('');
         }
-        setProducts(productsData);
+        
+        console.log("Productos cargados:", productsData);
+        setProducts(Array.isArray(productsData) ? productsData : []);
         setLoading(false);
       } catch (err) {
-        setError('Failed to load products');
+        console.error('Error fetching products:', err);
+        setError('No se pudieron cargar los productos. Por favor, intente de nuevo más tarde.');
         setLoading(false);
-        console.error(err);
       }
     };
 
     fetchProducts();
   }, [categorySlug]);
 
-  const activeCategory = categorySlug
-    ? categories.find(cat => cat.slug === categorySlug)
-    : null;
-
-  const title = activeCategory ? activeCategory.name : 'Shop';
-
   return (
-    <div className="shop-container">
-      <Title title={title} />
-      <CategoryNav categories={categories} activeCategory={categorySlug} />
+    <div className="shop-page">
+      <Title title="Nuestros productos" />
       
-      {loading ? (
-        <div className="loading">Loading products...</div>
-      ) : error ? (
-        <div className="error">{error}</div>
-      ) : (
-        <ProductList products={products} />
+      <CategoryNav activeCategory={categorySlug} />
+      
+      {categoryName && (
+        <h2 className="category-title">{categoryName}</h2>
       )}
+      
+      <ProductList 
+        products={products} 
+        categoryName={categoryName}
+        loading={loading}
+        error={error}
+      />
     </div>
   );
 };
 
-export default Shop;
+export default ShopPage;

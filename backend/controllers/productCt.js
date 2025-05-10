@@ -148,7 +148,6 @@ exports.getProductsByCategorySlug = async (req, res) => {
   try {
     const categorySlug = req.params.categorySlug;
     
-    // Find category by slug
     const category = await Category.findOne({ slug: categorySlug });
     
     if (!category) {
@@ -158,7 +157,6 @@ exports.getProductsByCategorySlug = async (req, res) => {
       });
     }
     
-    // Find products by category id
     const products = await Product.find({ category: category._id }).populate('category');
     
     res.status(200).json({
@@ -196,6 +194,28 @@ exports.getProductById = async (req, res) => {
     res.status(500).json({
       success: false,
       error: 'Server Error'
+    });
+  }
+};
+
+exports.getFeaturedProducts = async (req, res) => {
+  try {
+    const featuredProducts = await Product.find()
+      .sort({ createdAt: -1 })  
+      .limit(3)               
+      .populate('category');
+    
+    res.status(200).json({
+      success: true,
+      count: featuredProducts.length,
+      data: featuredProducts
+    });
+  } catch (error) {
+    console.error("Error fetching featured products:", error);
+    res.status(500).json({
+      success: false,
+      error: 'Server Error',
+      details: error.message
     });
   }
 };

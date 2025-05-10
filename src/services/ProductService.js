@@ -1,41 +1,38 @@
 import { fetchApi } from './api';
 
-export const getFeaturedProducts = async () => {
-  try {
-    const response = await fetchApi('/products');
-    const allProducts = response.data?.products || response.data;
-
-    //tomar los primeros 3 productos
-    const featuredProducts = allProducts.slice(0, 3);
-    return featuredProducts;
-  } catch (error) {
-    throw new Error('Error al obtener los productos destacados');
-  }
-};
-
 export const getCategories = async () => {
   const response = await fetchApi('/categories');
-  return response.data?.data || [];
+  return response.data || [];
 };
 
 export const getAllProducts = async () => {
   const response = await fetchApi('/products');
-  return response.data;
+  return response.data || [];
 };
 
 export const getProductsByCategory = async (categorySlug) => {
   if (!categorySlug) {
     const response = await fetchApi('/products');
-    return response.data;
+    return response.data || [];
   }
   
-  const response = await fetchApi(`/products/category/slug/${categorySlug}`);
-  return response.data;
+  try {
+    const response = await fetchApi(`/products/category/slug/${categorySlug}`);
+    return response.data || [];
+  } catch (error) {
+    console.error(`Error fetching products for category ${categorySlug}:`, error);
+    throw error;
+  }
 };
 
 export const getProductBySlug = async (slug) => {
-  const response = await fetchApi(`/products/slug/${slug}`);
-  return response.data;
+  try {
+    const response = await fetchApi(`/products/slug/${slug}`);
+    return response.data || null;
+  } catch (error) {
+    console.error(`Error fetching product with slug ${slug}:`, error);
+    throw error;
+  }
 };
 
 export const getRelatedProducts = async (categoryId, productId, limit = 3) => {
@@ -45,12 +42,12 @@ export const getRelatedProducts = async (categoryId, productId, limit = 3) => {
     
     if (categorySlug) {
       const response = await fetchApi(`/products/category/slug/${categorySlug}`);
-      return response.data
+      return (response.data || [])
         .filter(product => product._id !== productId)
         .slice(0, limit);
     } else {
       const response = await fetchApi(`/products/category/${categoryId}`);
-      return response.data
+      return (response.data || [])
         .filter(product => product._id !== productId)
         .slice(0, limit);
     }
@@ -58,4 +55,9 @@ export const getRelatedProducts = async (categoryId, productId, limit = 3) => {
     console.error("Error fetching related products:", error);
     return [];
   }
+};
+
+export const getFeaturedProducts = async () => {
+  const response = await fetchApi('/products/featured-products');
+  return response.data || [];
 };

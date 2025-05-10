@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const productController = require('../controllers/productCt');
 
+router.get('/featured-products', productController.getFeaturedProducts);
 router.post('/', productController.addProduct);
 router.get('/', productController.getAllProducts);
 router.get('/:id', productController.getProductById);
